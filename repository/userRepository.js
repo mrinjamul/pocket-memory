@@ -29,6 +29,15 @@ const userRepository = {
     }
   },
 
+  // Get a user by email from the database
+  getUserByEmail: async function (email) {
+    try {
+      return await User.findOne({ email });
+    } catch (error) {
+      throw new Error(`Error getting user by username: ${error.message}`);
+    }
+  },
+
   // Check if a password is valid for a user by username
   isPasswordValid: async function (username, password) {
     try {
