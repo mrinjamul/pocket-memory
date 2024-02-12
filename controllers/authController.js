@@ -8,6 +8,8 @@ const jwt = require("../helpers/jwt");
 
 const { cookieConfig } = require("../helpers/cookie");
 
+const { maskUser } = require("../helpers/utils");
+
 const authController = {
   // createUser: handle the user creation request
   signup: async function (req, res, next) {
@@ -73,9 +75,11 @@ const authController = {
         return;
       }
 
+      const maskedUser = maskUser(user, true);
+
       res.status(constants.http.StatusOK).json({
         status: true,
-        data: user,
+        data: maskedUser,
       });
     } catch (err) {
       console.error(err);
@@ -118,11 +122,7 @@ const authController = {
         return;
       }
 
-      const maskedUser = {
-        username: user.username,
-        name: user.name,
-        email: user.email,
-      };
+      const maskedUser = maskUser(user, true);
 
       // validate password
       const isVerified = await bcrypt.verifyHash(password, user.password);
