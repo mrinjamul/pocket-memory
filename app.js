@@ -30,11 +30,9 @@ app.use(cors()); // cors for cross origin access
 
 // Import routers
 
-var indexRouter = require("./routes/index");
-var authRouter = require("./routes/auth");
+var routes = require("./routes/index");
 
-app.use("/", indexRouter);
-app.use("/auth", authRouter);
+app.use(routes);
 
 // log all endpoints
 function print(path, layer) {
