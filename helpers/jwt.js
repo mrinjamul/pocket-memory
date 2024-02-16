@@ -10,6 +10,7 @@ const expireIn = 3 * 24 * 60 * 60;
 // default payload
 function getPayload(user) {
   var payload = {
+    id: user._id,
     name: user.name,
     username: user.username,
     email: user.email,
