@@ -58,13 +58,6 @@ const userController = {
 
       const maskedUser = maskUser(user, isAuthenticated);
 
-      if (isAuthenticated) {
-        // FIXME: replace with original images
-        maskedUser.gallery = ["private images"];
-      } else {
-        maskedUser.gallery = ["public images"];
-      }
-
       res.status(constants.http.StatusOK).json({
         status: true,
         data: maskedUser,
