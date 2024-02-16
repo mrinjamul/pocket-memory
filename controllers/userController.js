@@ -39,8 +39,10 @@ const userController = {
         // console.log("error: failed to get token from header");
       }
 
-      // get cookie
-      token = req.cookies.token;
+      if (!token) {
+        // get cookie
+        token = req.cookies.token;
+      }
 
       // if token exist and verified set authenticated
       if (token) {

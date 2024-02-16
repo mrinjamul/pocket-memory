@@ -13,8 +13,8 @@ router.post(
   pictureController.uploadPicture
 );
 // Get all file lists
-router.get("/", () => {});
+router.get("/", pictureController.getAllPicture);
 // Get a picture
-router.get("/:file", () => {});
+router.get("/:file", pictureController.getAPicture);
 
 module.exports = router;
