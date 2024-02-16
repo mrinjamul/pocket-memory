@@ -16,5 +16,7 @@ router.post(
 router.get("/", pictureController.getAllPicture);
 // Get a picture
 router.get("/:file", pictureController.getAPicture);
+// Delete a picture
+router.delete("/:id", authenticated, pictureController.deleteAPicture);
 
 module.exports = router;

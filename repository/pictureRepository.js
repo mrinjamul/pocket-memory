@@ -46,6 +46,14 @@ const pictureRepository = {
       throw new Error(`Error deleting picture: ${error.message}`);
     }
   },
+  deletePictureByIdAndUserId: async (id, userId) => {
+    try {
+      const query = { _id: id, userId: userId };
+      return await Picture.deleteOne(query);
+    } catch (error) {
+      throw new Error(`Error deleting picture: ${error.message}`);
+    }
+  },
 };
 
 module.exports = pictureRepository;
