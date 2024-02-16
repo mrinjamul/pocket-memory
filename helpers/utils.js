@@ -6,6 +6,7 @@ function maskUser(user, authenticated) {
       username: user.username,
       name: user.name,
       email: user.email,
+      avatar: user.avatar,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
     };
@@ -13,6 +14,7 @@ function maskUser(user, authenticated) {
     maskedUser = {
       username: user.username,
       email: user.email,
+      avatar: user.avatar,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
     };

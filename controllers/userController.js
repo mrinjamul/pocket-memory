@@ -6,6 +6,10 @@ const bcrypt = require("../helpers/bcrypt");
 
 const { maskUser } = require("../helpers/utils");
 
+const config = require("../config").getConfig();
+var port = config.server.port;
+var server_url = `${config.server.address}:${port}/api/v1/avatar/`;
+
 const jwt = require("../helpers/jwt");
 
 const userController = {
@@ -57,6 +61,11 @@ const userController = {
       }
 
       const maskedUser = maskUser(user, isAuthenticated);
+
+      // update avatar url
+      if (maskedUser.avatar) {
+        maskedUser.avatar = server_url + maskedUser.avatar;
+      }
 
       res.status(constants.http.StatusOK).json({
         status: true,
