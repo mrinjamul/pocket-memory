@@ -52,7 +52,8 @@ const pictureController = {
         likes: 0,
         comments: [],
       };
-      const picture = await pictureRepository.addPicture(newPicture);
+      let picture = await pictureRepository.addPicture(newPicture);
+      picture.url = "http://" + server_url + querystring.escape(picture.title);
 
       res.status(constants.http.StatusOK).json({
         status: true,
@@ -107,7 +108,7 @@ const pictureController = {
 
       // convert relative path to absolute url
       images.forEach((img) => {
-        img.url = server_url + querystring.escape(img.title);
+        img.url = "http://" + server_url + querystring.escape(img.title);
       });
 
       res.status(constants.http.StatusOK).json({
