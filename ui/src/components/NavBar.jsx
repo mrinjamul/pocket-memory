@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   SunIcon,
   MoonIcon,
@@ -8,11 +8,33 @@ import {
   InformationCircleIcon,
   ArrowLeftEndOnRectangleIcon,
 } from "@heroicons/react/24/solid";
-import { useAuth } from "../AuthContext";
+
+import { useRecoilState } from "recoil";
+import { userAtom, tokenAtom, isAuthenticatedAtom } from "../atoms";
 
 const Navbar = ({ darkMode, toggleDarkMode }) => {
-  const { isAuthenticated, logout, user } = useAuth();
+  const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
+  // const isAuthenticated = useRecoilValue(isAuthenticatedAtom);
+  // const user = useRecoilValue(userAtom);
+  const [token, setToken] = useRecoilState(tokenAtom);
+  const [user, setUser] = useRecoilState(userAtom);
+  const [isAuthenticated, setIsAuthenticated] =
+    useRecoilState(isAuthenticatedAtom);
+
+  const logout = async () => {
+    try {
+      // Remove token, user, and authentication state
+      setToken("");
+      setUser(null);
+      setIsAuthenticated(false);
+
+      // Redirect to welcome page
+      navigate("/");
+    } catch (error) {
+      console.error("Login error:", error);
+    }
+  };
 
   const handleDropdownToggle = () => {
     setShowDropdown(!showDropdown);

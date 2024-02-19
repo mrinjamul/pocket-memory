@@ -1,8 +1,7 @@
 import React from "react";
-import { useAuth } from "../AuthContext";
 
 const Hero = () => {
-  const { isAuthenticated } = useAuth();
+  let isAuthenticated = false;
 
   const getStarted = (event) => {
     if (isAuthenticated) {

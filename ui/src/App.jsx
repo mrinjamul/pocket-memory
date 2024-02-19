@@ -1,23 +1,23 @@
-import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { RecoilRoot } from "recoil";
 
-import { AuthProvider } from "./AuthContext";
-
+import NotFound from "./pages/NotFound";
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
-import NotFound from "./pages/NotFound";
+import Home from "./pages/Home";
 
 function App() {
   return (
-    <AuthProvider>
+    <RecoilRoot>
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<Landing />} />
+          <Route path="/app" element={<Home />} />
           <Route path="/*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
-    </AuthProvider>
+    </RecoilRoot>
   );
 }
 
