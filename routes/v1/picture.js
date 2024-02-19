@@ -13,7 +13,9 @@ router.post(
   pictureController.uploadPicture
 );
 // Get all file lists
-router.get("/", pictureController.getAllPicture);
+router.get("", pictureController.getAllPicture);
+// Get pictures for a user
+router.get("/u/:username", pictureController.getPublicPictureByUser);
 // Get a picture
 router.get("/:file", pictureController.getAPicture);
 // Delete a picture

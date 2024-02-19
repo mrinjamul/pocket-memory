@@ -23,6 +23,17 @@ const pictureRepository = {
       throw new Error(`Error getting picture: ${error.message}`);
     }
   },
+  getAllPublicPicturesByUser: async (userId) => {
+    try {
+      const pictures = await Picture.find({
+        userId: userId,
+        privacy: "public",
+      });
+      return pictures;
+    } catch (error) {
+      throw new Error(`Error getting picture: ${error.message}`);
+    }
+  },
   getPicturesByUserId: async (userId) => {
     try {
       return await Picture.find({ userId: userId });

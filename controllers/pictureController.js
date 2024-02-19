@@ -13,6 +13,7 @@ var port = config.server.port;
 var server_url = `${config.server.address}:${port}/api/v1/picture/`;
 
 const querystring = require("querystring");
+const userRepository = require("../repository/userRepository");
 
 const pictureController = {
   uploadPicture: async (req, res, next) => {
@@ -125,6 +126,32 @@ const pictureController = {
       });
     }
   },
+  getPublicPictureByUser: async (req, res, next) => {
+    try {
+      const username = req.params.username;
+      const userData = await userRepository.getUserByUsername(username);
+      var images;
+      images = await pictureRepository.getAllPublicPicturesByUser(userData._id);
+
+      // convert relative path to absolute url
+      images.forEach((img) => {
+        img.url = "http://" + server_url + querystring.escape(img.title);
+      });
+
+      res.status(constants.http.StatusOK).json({
+        status: true,
+        data: images,
+      });
+    } catch (err) {
+      console.error(err);
+      res.status(constants.http.StatusInternalServerError).json({
+        status: false,
+        code: constants.http.StatusInternalServerError,
+        error: "Internal Server Error",
+        message: err,
+      });
+    }
+  },
   getAPicture: async (req, res, next) => {
     try {
       // Get the filename from the request params
@@ -206,7 +233,6 @@ const pictureController = {
     try {
       const id = req.params.id;
       const userData = req.user;
-      console.log(id, userData.id);
       const deleted = await pictureRepository.deletePictureByIdAndUserId(
         id,
         userData.id
