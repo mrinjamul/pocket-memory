@@ -23,9 +23,9 @@ const pictureRepository = {
       throw new Error(`Error getting picture: ${error.message}`);
     }
   },
-  getPicturesByUserId: async (id) => {
+  getPicturesByUserId: async (userId) => {
     try {
-      return await Picture.find({ userId: id });
+      return await Picture.find({ userId: userId });
     } catch (error) {
       throw new Error(`Error getting picture: ${error.message}`);
     }

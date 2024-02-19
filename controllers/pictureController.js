@@ -129,39 +129,41 @@ const pictureController = {
     try {
       // Get the filename from the request params
       const filename = req.params.file;
-      // check if authenticated user
-      var isAuthenticated = false;
-      var token;
-      // get token from header
-      try {
-        token = req.headers.authorization.split(" ")[1];
-      } catch (err) {
-        // console.log("error: failed to get token from header");
-      }
+      // // check if authenticated user
+      // var isAuthenticated = false;
+      // var token;
+      // // get token from header
+      // try {
+      //   token = req.headers.authorization.split(" ")[1];
+      // } catch (err) {
+      //   // console.log("error: failed to get token from header");
+      // }
 
-      if (!token) {
-        // get cookie
-        token = req.cookies.token;
-      }
+      // if (!token) {
+      //   // get cookie
+      //   token = req.cookies.token;
+      // }
 
-      var userData;
-      // if token exist and verified set authenticated
-      if (token) {
-        // verify token
-        const verifyOpts = jwt.getVerifyingOptions();
-        const decodedToken = await jwt.verifyToken(token, verifyOpts);
-        if (decodedToken) {
-          isAuthenticated = true;
-          userData = decodedToken;
-        }
-      }
+      // var userData;
+      // // if token exist and verified set authenticated
+      // if (token) {
+      //   // verify token
+      //   const verifyOpts = jwt.getVerifyingOptions();
+      //   const decodedToken = await jwt.verifyToken(token, verifyOpts);
+      //   if (decodedToken) {
+      //     isAuthenticated = true;
+      //     userData = decodedToken;
+      //   }
+      // }
 
-      var images;
-      if (isAuthenticated) {
-        images = await pictureRepository.getPicturesByUserId(userData.id);
-      } else {
-        images = await pictureRepository.getAllPublicPictures();
-      }
+      // var images;
+      // if (isAuthenticated) {
+      //   images = await pictureRepository.getPicturesByUserId(userData.id);
+      // } else {
+      //   images = await pictureRepository.getAllPublicPictures();
+      // }
+
+      var images = await pictureRepository.getAllPictures();
 
       // check if file exits in the list.
       let img_file = "";

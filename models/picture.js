@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const pictureSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  userId: String,
   title: String,
   description: String,
   url: String,

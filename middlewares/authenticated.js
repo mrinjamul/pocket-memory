@@ -19,6 +19,7 @@ const authenticated = (req, res, next) => {
       message: "Unauthorized",
       data: null,
     });
+    return;
   }
 
   var verifyOpts = jwt.getVerifyingOptions();
