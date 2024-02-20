@@ -48,7 +48,11 @@ const Picture = (props) => {
           </button>
         </div>
       )}
-      <img src={img.url} alt={img.title} className="rounded-lg" />
+      <img
+        src={img.url}
+        alt={img.title}
+        className="w-48 h-48 rounded-md object-cover"
+      />
     </div>
   );
 };

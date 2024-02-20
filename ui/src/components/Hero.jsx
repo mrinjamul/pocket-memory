@@ -15,7 +15,7 @@ const Hero = () => {
     <>
       {/* Hero Section */}
       <div className="flex-grow flex items-center justify-center">
-        <div className="text-center">
+        <div className="p-8 text-center">
           <h1 className={"text-4xl font-bold text-gray-800 dark:text-white"}>
             Welcome to Pocket Memory
           </h1>
