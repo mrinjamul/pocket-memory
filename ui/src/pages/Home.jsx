@@ -3,10 +3,11 @@ import { useNavigate } from "react-router-dom";
 
 import { useRecoilValue } from "recoil";
 import { userAtom, tokenAtom, isAuthenticatedAtom } from "../atoms";
+import axios from "axios";
+import { CloudArrowUpIcon } from "@heroicons/react/24/solid";
 
 import BaseLayout from "../components/BaseLayout";
 import Mosaic from "../components/Mosaic";
-import axios from "axios";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -38,21 +39,45 @@ const Home = () => {
     return () => {};
   }, [isAuthenticated, token]);
 
+  const handleUpload = async (event) => {
+    const file = event.target.files[0];
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await axios.post(
+        `${apiURL}/api/v1/picture/upload`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      // After successful upload, refetch pictures
+      fetchPictures();
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    }
+  };
+
   return (
     <BaseLayout>
-      <div className="relative">
+      <div className="p-4">
         <label
           htmlFor="upload-input"
-          className="absolute top-0 right-0 mt-4 mr-4 text-white bg-blue-500 px-4 py-2 rounded cursor-pointer"
+          className="cursor-pointer inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
+          <CloudArrowUpIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
           Upload Photo
         </label>
         <input
           id="upload-input"
           type="file"
-          accept="image/*"
-          className="hidden"
-          onChange={() => {}}
+          className="sr-only"
+          onChange={handleUpload}
         />
       </div>
       <Mosaic userPhotos={gallery} />
