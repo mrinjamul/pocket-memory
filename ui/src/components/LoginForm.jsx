@@ -25,7 +25,6 @@ const LoginForm = (props) => {
                 type="text"
                 placeholder="Username"
                 onChange={(e) => setUsername(e.target.value)}
-                required
               />
             </div>
             <div className="mb-6">
@@ -45,7 +44,6 @@ const LoginForm = (props) => {
                 type="password"
                 placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
-                required
               />
             </div>
             {/* Error */}
@@ -54,7 +52,7 @@ const LoginForm = (props) => {
                 className="m-2 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
                 role="alert"
               >
-                <strong className="font-bold">Error:</strong>
+                <strong className="font-bold">Error: </strong>
                 <span className="block sm:inline">{error}</span>
               </div>
             )}

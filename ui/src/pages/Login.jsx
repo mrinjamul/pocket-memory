@@ -20,8 +20,19 @@ const Login = () => {
 
   const apiURL = import.meta.env.VITE_APP_APIURL || "http://localhost:4000";
 
+  // check if email
+  const isEmail = (input) => {
+    // Regular expression to match email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(input);
+  };
+
   const handleLogin = async (event) => {
     event.preventDefault();
+
+    const reqBody = isEmail(username)
+      ? { email: username, password }
+      : { username, password };
 
     // Basic input validation to prevent empty fields
     if (!username || !password) {
@@ -30,10 +41,7 @@ const Login = () => {
     }
 
     try {
-      const response = await axios.post(apiURL + "/auth/login", {
-        username,
-        password,
-      });
+      const response = await axios.post(apiURL + "/auth/login", reqBody);
       const { token, data } = response.data;
 
       // Update Recoil atoms with token, user, and authentication state
