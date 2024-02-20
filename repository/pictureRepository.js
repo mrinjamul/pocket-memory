@@ -50,6 +50,19 @@ const pictureRepository = {
       throw new Error(`Error updating picture: ${error.message}`);
     }
   },
+  updateUserPictureById: async (id, userId, pictureData) => {
+    try {
+      return await Picture.findOneAndUpdate(
+        { _id: id, userId: userId },
+        pictureData,
+        {
+          new: true,
+        }
+      );
+    } catch (error) {
+      throw new Error(`Error updating picture: ${error.message}`);
+    }
+  },
   deletePictureById: async (id) => {
     try {
       return await Picture.findByIdAndDelete(id);

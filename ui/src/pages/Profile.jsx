@@ -65,7 +65,7 @@ const Profile = () => {
     }
   }, [username, user]);
 
-  if (user.username == "") {
+  if (userData.username == "") {
     return <NotFound />;
   }
 

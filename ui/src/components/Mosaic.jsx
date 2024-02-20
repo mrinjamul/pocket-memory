@@ -1,7 +1,8 @@
 import React from "react";
+import Picture from "./Picture";
 
 const Mosaic = (props) => {
-  const { userPhotos } = props;
+  const { userPhotos, togglePrivacy, deleteAPicture } = props;
 
   return (
     <>
@@ -9,11 +10,11 @@ const Mosaic = (props) => {
       <div className="flex-grow flex justify-center items-center p-8">
         <div className="grid grid-cols-5 gap-5">
           {userPhotos.map((img, index) => (
-            <img
+            <Picture
               key={index}
-              src={img.url}
-              alt={img.title}
-              className="rounded-lg"
+              img={img}
+              togglePrivacy={togglePrivacy}
+              deleteAPicture={deleteAPicture}
             />
           ))}
         </div>

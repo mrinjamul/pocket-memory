@@ -229,6 +229,39 @@ const pictureController = {
       });
     }
   },
+  updateAPicture: async (req, res, next) => {
+    try {
+      const id = req.params.id;
+      const userData = req.user;
+      const pictureData = req.body;
+      console.log(pictureData);
+      const updatedPicture = await pictureRepository.updateUserPictureById(
+        id,
+        userData.id,
+        pictureData
+      );
+      if (!updatedPicture) {
+        return res.status(constants.http.StatusInternalServerError).json({
+          status: false,
+          code: constants.http.StatusBadRequest,
+          error: "failed to update the picture",
+          message: err,
+        });
+      }
+      res.status(constants.http.StatusOK).json({
+        status: true,
+        data: updatedPicture,
+      });
+    } catch (err) {
+      console.error(err);
+      res.status(constants.http.StatusInternalServerError).json({
+        status: false,
+        code: constants.http.StatusInternalServerError,
+        error: "Internal Server Error",
+        message: err,
+      });
+    }
+  },
   deleteAPicture: async (req, res, next) => {
     try {
       const id = req.params.id;

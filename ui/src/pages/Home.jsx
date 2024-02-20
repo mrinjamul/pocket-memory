@@ -63,6 +63,48 @@ const Home = () => {
     }
   };
 
+  // toggle privacy picture
+  const togglePrivacy = async (id, privacy) => {
+    try {
+      let bodyData =
+        privacy == "private" ? { privacy: "public" } : { privacy: "private" };
+      const response = await axios.post(
+        `${apiURL}/api/v1/picture/${id}`,
+        bodyData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const data = response.data;
+      // After successful upload, refetch pictures
+      fetchPictures();
+
+      return data;
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    }
+  };
+
+  // delete a picture
+  const deleteAPicture = async (id) => {
+    try {
+      const response = await axios.delete(`${apiURL}/api/v1/picture/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = response.data;
+      // After successful upload, refetch pictures
+      fetchPictures();
+
+      return data;
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    }
+  };
+
   return (
     <BaseLayout>
       <div className="p-4">
@@ -80,7 +122,11 @@ const Home = () => {
           onChange={handleUpload}
         />
       </div>
-      <Mosaic userPhotos={gallery} />
+      <Mosaic
+        userPhotos={gallery}
+        togglePrivacy={togglePrivacy}
+        deleteAPicture={deleteAPicture}
+      />
     </BaseLayout>
   );
 };

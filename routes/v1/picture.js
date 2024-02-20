@@ -18,6 +18,8 @@ router.get("", pictureController.getAllPicture);
 router.get("/u/:username", pictureController.getPublicPictureByUser);
 // Get a picture
 router.get("/:file", pictureController.getAPicture);
+// Update a picture
+router.post("/:id", authenticated, pictureController.updateAPicture);
 // Delete a picture
 router.delete("/:id", authenticated, pictureController.deleteAPicture);
 
