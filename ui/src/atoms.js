@@ -31,6 +31,12 @@ const isAuthenticatedPersistEffect = () => {
 };
 
 // atoms
+const themeAtom = atom({
+  key: "theme",
+  default: false,
+  effects: [localStorageEffect("theme")],
+});
+
 const tokenAtom = atom({
   key: "token",
   default: "",
@@ -49,4 +55,4 @@ const isAuthenticatedAtom = atom({
   effects: [localStorageEffect("isAuthenticated")],
 });
 
-export { tokenAtom, userAtom, isAuthenticatedAtom };
+export { themeAtom, tokenAtom, userAtom, isAuthenticatedAtom };

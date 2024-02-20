@@ -1,10 +1,12 @@
 import React from "react";
-import { useState } from "react";
 import Navbar from "./NavBar";
 import Footer from "./Footer";
 
+import { useRecoilState } from "recoil";
+import { themeAtom } from "../atoms";
+
 const BaseLayout = ({ children }) => {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useRecoilState(themeAtom);
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);

@@ -68,7 +68,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
             )}
             {showDropdown && (
               <div
-                className={`absolute top-full right-0 mt-2 w-48 ${
+                className={`absolute top-full right-0 mt-2 w-48 z-50 ${
                   darkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
                 } border border-gray-200 shadow-lg rounded`}
               >
