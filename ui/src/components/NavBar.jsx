@@ -7,6 +7,7 @@ import {
   CogIcon,
   InformationCircleIcon,
   ArrowLeftEndOnRectangleIcon,
+  ArrowRightEndOnRectangleIcon,
 } from "@heroicons/react/24/solid";
 
 import { useRecoilState } from "recoil";
@@ -58,6 +59,16 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
             <a href={`${homeLink}`}>Pocket Memory</a>
           </div>
           <div className="flex items-center space-x-4 relative">
+            {!isAuthenticated && (
+              <button
+                className="text-white hover:text-blue-200 focus:outline-none"
+                onClick={() => {
+                  window.location.href = "/login";
+                }}
+              >
+                <ArrowLeftEndOnRectangleIcon className="w-6 h-6" />
+              </button>
+            )}
             {isAuthenticated && (
               <button
                 className="text-white hover:text-blue-200 focus:outline-none"
@@ -117,7 +128,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                         // window.location.href = "/";
                       }}
                     >
-                      <ArrowLeftEndOnRectangleIcon className="w-6 h-6 inline-block mr-2" />
+                      <ArrowRightEndOnRectangleIcon className="w-6 h-6 inline-block mr-2" />
                       Logout
                     </a>
                   </li>

@@ -9,6 +9,7 @@ import SignUpForm from "../components/SignUpForm";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -33,6 +34,7 @@ const SignUp = () => {
 
     try {
       const response = await axios.post(apiURL + "/auth/signup", {
+        name,
         username,
         email,
         password,
@@ -58,6 +60,7 @@ const SignUp = () => {
   return (
     <BaseLayout>
       <SignUpForm
+        setName={setName}
         setUsername={setUsername}
         setEmail={setEmail}
         setPassword={setPassword}

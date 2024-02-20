@@ -1,13 +1,33 @@
 import React from "react";
 
 const SignUpForm = (props) => {
-  const { setUsername, setEmail, setPassword, handleSignUp, error } = props;
+  const { setName, setUsername, setEmail, setPassword, handleSignUp, error } =
+    props;
   return (
     <>
       {/* Sign Up Form */}
       <div className="flex-grow flex items-center justify-center">
         <div className="w-full max-w-sm bg-opacity-50 bg-white dark:bg-gray-700 shadow-md rounded px-8 pt-6 pb-8 mb-4">
           <form onSubmit={handleSignUp}>
+            <div className="mb-4">
+              <label
+                className={
+                  "block text-gray-700 text-sm font-bold mb-2 dark:text-white"
+                }
+                htmlFor="name"
+              >
+                Name
+              </label>
+              <input
+                className={
+                  "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 bg-white leading-tight focus:outline-none focus:shadow-outline dark:text-white dark:bg-gray-800"
+                }
+                id="name"
+                type="text"
+                placeholder="John Doe"
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
             <div className="mb-4">
               <label
                 className={
@@ -23,7 +43,7 @@ const SignUpForm = (props) => {
                 }
                 id="username"
                 type="text"
-                placeholder="Username"
+                placeholder="john"
                 onChange={(e) => setUsername(e.target.value)}
               />
             </div>
@@ -42,7 +62,7 @@ const SignUpForm = (props) => {
                 }
                 id="email"
                 type="email"
-                placeholder="Email"
+                placeholder="john@gmail.com"
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>

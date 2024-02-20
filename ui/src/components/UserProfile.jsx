@@ -1,4 +1,5 @@
 import React from "react";
+import avatar from "../assets/avatar.png";
 
 const UserProfile = (props) => {
   const { user } = props;
@@ -31,11 +32,7 @@ const UserProfile = (props) => {
       <div className="flex-grow flex justify-center items-center">
         <div className="w-full max-w-xl bg-opacity-50 bg-white dark:bg-gray-700 shadow-md rounded-lg p-8">
           <div className="flex items-center mb-6">
-            <img
-              src="https://via.placeholder.com/50"
-              alt="Avatar"
-              className="w-12 h-12 rounded-full"
-            />
+            <img src={avatar} alt="Avatar" className="w-12 h-12 rounded-full" />
             <div className="ml-4">
               {user.name && (
                 <h2
@@ -64,7 +61,7 @@ const UserProfile = (props) => {
           <p className={"text-sm text-gray-600 dark:text-gray-300"}>
             Created: {formatDate(user.createdAt)}
             <br />
-            last updated {timeDiff(user.updatedAt)}
+            Last Updated: {timeDiff(user.updatedAt)}
           </p>
         </div>
       </div>
