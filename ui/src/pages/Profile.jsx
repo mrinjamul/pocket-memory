@@ -15,7 +15,7 @@ const Profile = () => {
   const user = useRecoilValue(userAtom);
   const [userData, setUserData] = useState({
     name: "",
-    username: "",
+    username: "username",
     bio: "",
   });
   const [gallery, setGallery] = useState([]);
@@ -27,11 +27,21 @@ const Profile = () => {
   // Get Profile info
   const getProfile = async (username) => {
     try {
-      const response = await axios.get(`${apiURL}/api/v1/user/${username}`);
-      const userinfo = response.data.data;
+      const headers = token
+        ? `{headers: { Authorization: "Bearer token" }}`
+        : "";
+      const response = await axios.get(
+        `${apiURL}/api/v1/user/${username}`,
+        headers
+      );
+      let userinfo = response.data.data;
+      userinfo.avatar = userinfo?.avatar
+        ? `http://${userinfo.avatar}`
+        : userinfo?.avatar;
       setUserData(userinfo);
     } catch (err) {
       // console.log(err);
+      setUserData({ username: "" });
     }
   };
   const fetchPictures = async () => {
@@ -55,23 +65,46 @@ const Profile = () => {
     setGallery(pictures);
   };
 
+  const handleAvatarUpload = async (event) => {
+    const file = event.target.files[0];
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await axios.post(
+        `${apiURL}/api/v1/avatar/upload`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      // Handle successful upload
+      console.log("Avatar uploaded successfully:", response.data);
+      getProfile(username); // You may want to update the user's avatar URL in the state or re-fetch user data
+    } catch (error) {
+      console.error("Error uploading avatar:", error);
+    }
+  };
+
   useEffect(() => {
+    getProfile(username);
     if (user && username == user.username) {
-      setUserData(user);
       fetchPictures();
     } else {
-      getProfile(username);
       fetchPublicPictures(username);
     }
   }, [username, user]);
 
-  if (userData.username == "") {
+  if (userData && userData.username == "") {
     return <NotFound />;
   }
 
   return (
     <BaseLayout>
-      <UserProfile user={userData} />
+      <UserProfile user={userData} handleAvatarUpload={handleAvatarUpload} />
       <Gallery userPhotos={gallery} />
     </BaseLayout>
   );

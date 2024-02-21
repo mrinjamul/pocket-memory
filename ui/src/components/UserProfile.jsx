@@ -1,8 +1,14 @@
-import React from "react";
-import avatar from "../assets/avatar.png";
+import React, { useState } from "react";
+import { PencilIcon } from "@heroicons/react/24/solid";
+
+import { isAuthenticatedAtom } from "../atoms";
+import { useRecoilValue } from "recoil";
+import Avatar from "./Avatar";
 
 const UserProfile = (props) => {
-  const { user } = props;
+  const { user, handleAvatarUpload } = props;
+  const isAuthenticated = useRecoilValue(isAuthenticatedAtom);
+  const [isEditing, setIsEditing] = useState(false);
 
   // Calculate the time difference between two dates in human-readable format
   const timeDiff = (date) => {
@@ -32,7 +38,32 @@ const UserProfile = (props) => {
       <div className="flex-grow flex justify-center items-center">
         <div className="w-full max-w-xl bg-opacity-50 bg-white dark:bg-gray-700 shadow-md rounded-lg p-8">
           <div className="flex items-center mb-6">
-            <img src={avatar} alt="Avatar" className="w-12 h-12 rounded-full" />
+            <div
+              className="relative"
+              onMouseEnter={() => setIsEditing(true)}
+              onMouseLeave={() => setIsEditing(false)}
+            >
+              {<Avatar src={user.avatar} />}
+              {isAuthenticated && isEditing && (
+                <div className="absolute top-0 right-0 bg-gray-900 bg-opacity-75 p-1 rounded-full">
+                  <label htmlFor="avatar-upload" className="cursor-pointer">
+                    <PencilIcon className="h-5 w-5 text-white" />
+                  </label>
+                  <input
+                    id="avatar-upload"
+                    type="file"
+                    className="hidden"
+                    accept="image/*"
+                    onChange={(event) => {
+                      handleAvatarUpload(event);
+                      setTimeout(() => {
+                        window.location.reload();
+                      }, 100);
+                    }}
+                  />
+                </div>
+              )}
+            </div>
             <div className="ml-4">
               {user.name && (
                 <h2
